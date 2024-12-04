@@ -432,6 +432,47 @@ h4 {
 	text-align: right;
 }
 
+/*light behind */
+#page2Header {
+    font-family: 'Courier New', monospace;
+    font-size: 2.5rem;
+    color: white; /* Text color */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), /* Bright center glow */
+                 0 0 20px rgba(255, 255, 255, 0.6), /* Outer halo */
+                 0 0 30px rgba(255, 182, 193, 0.8); /* Pinkish glow */
+}
+
+#p2 {
+    font-size: medium;
+    color: white; /* Text color */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8),
+                 0 0 15px rgba(255, 105, 180, 0.6),
+                 0 0 25px rgba(202, 0, 108, 0.8);
+}
+
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                     0 0 20px rgba(255, 255, 255, 0.6),
+                     0 0 30px rgba(255, 182, 193, 0.8);
+    }
+    50% {
+        text-shadow: 0 0 15px rgba(255, 255, 255, 1),
+                     0 0 25px rgba(255, 182, 193, 0.9),
+                     0 0 40px rgba(255, 20, 147, 1);
+    }
+    100% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+                     0 0 20px rgba(255, 255, 255, 0.6),
+                     0 0 30px rgba(255, 182, 193, 0.8);
+    }
+}
+
+#page2Header, #p2 {
+    animation: glow 2s infinite alternate;
+}
+
+
     </style>
 </head>
 <body>
