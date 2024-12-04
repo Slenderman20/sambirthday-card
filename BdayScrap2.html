@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Navigation</title>
+    <style>
+         @import url('https://fonts.googleapis.com/css?family=Indie+Flower');
+         @import url('https://fonts.googleapis.com/css?family=Amatic+SC');
+        body {
+            font-family: Arial, sans-serif;
+            background-color: lightpink;
+            margin: 0;
+            padding: 0;
+            position:relative;
+            overflow: hidden;
+        }
+
+        .page {
+            display: none;
+            padding: 40px;
+            text-align: center;
+            min-height: 100vh;
+            z-index: 1;
+        }
+
+        .page.active {
+            display: block;
+            z-index: 1;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        
+        }
+
+        button:hover {
+            background-color: #ff4b4b;
+        }
+
+        .buttons-container {
+            position: absolute;
+            width: 100%;
+            bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+            z-index: 1;
+        }
+
+        #birthdayTitle {
+             font-family: 'Courier New', monospace;  /* Example font */
+             font-size: 3rem;                        /* Adjust size */
+             color: #e50a0a;                         /* Change color */
+             text-align: center;  
+             position: relative;
+             z-index: 1;
+             
+        }
+
+        #p2{
+            font-size: medium;
+
+        }
+
+
+        #page2Header{
+            font-family: 'Courier New', monospace;
+
+        }
+
+        .heart {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #f02121;
+            transform: rotate(-45deg);
+            z-index: -3;  /* Keep hearts behind the title */
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .heart::before, .heart::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #f02121;
+        }
+
+        .heart::before {
+            top: -25px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: 25px;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-30px) scale(1.2);
+            }
+            100% {
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Create multiple hearts in random positions */
+        .heart1 {
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .heart2 {
+            top: 5%;
+            left: 85%;
+            animation-delay: 2s;
+        }
+
+        .heart3 {
+            top: 50%;
+            left: 80%;
+            animation-delay: 4s;
+        }
+
+        .heart4 {
+            top: 80%;
+            left: 90%;
+            animation-delay: 1s;
+        }
+
+        .heart5 {
+            top: 20%;
+            left: 35%;
+            animation-delay: 2s;
+        }
+
+        .heart6 {
+            top: 40%;
+            left: 50%;
+            animation-delay: 2s;
+        }
+
+        .heart7 {
+            top: 60%;
+            left: 30%;
+            animation-delay: 4s;
+        }
+
+        .heart8 {
+            top: 85%;
+            left: 15%;
+            animation-delay: 1s;
+        }
+
+        .heart9 {
+            top: 45%;
+            left: 12%;
+            animation-delay: 1s;
+        }
+
+        .heart10 {
+            top: 70%;
+            left: 60%;
+            animation-delay: 1s;
+        }
+
+        .heart11 {
+            top: 30%;
+            left: 75%;
+            animation-delay: 1s;
+        }
+
+
+        /* Images */
+
+        .portrait-container {
+             position: relative;
+             margin-top: 20px;
+        }
+
+        .portrait-image::after {
+             content: 'HelloThere'; /* Optional caption space */
+             display: block;
+             height: 30px; /* Adds extra space at the bottom for text */
+        }
+
+
+        .portrait-image {
+            position: absolute;
+            width: 160px; /* Adjust width as needed */
+            height: auto;
+            border: 10px solid white; /* Creates the Polaroid border */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Adds shadow for depth */
+            
+        }
+
+        /* Custom positioning and rotation for the 2nd and 3rd images */
+        .image1 {
+            transform: rotate(20deg);
+            top: 28%;
+            left: 60%;
+            transform: translateX(-50%) rotate(20deg);
+            z-index: -2;
+        }
+
+        .image2 {
+            transform: rotate(-20deg);
+            top: 30%; /* Position it below the first image */
+            left: 33%; /* Move it slightly to the right */
+            transform: translateX(-50%) rotate(-15deg);
+            z-index: -2;
+        }
+
+        .image3 {
+            transform: rotate(-10deg);
+            top: 56%; /* Position it below the second image */
+            left: 58%; /* Move it slightly to the left */
+            transform: translateX(-50%) rotate(-10deg);
+        }
+
+        .image4{
+            transform: rotate(10deg);
+            top: 57%; /* Position it below the second image */
+            left: 35%; /* Move it slightly to the left */
+            transform: translateX(-50%) rotate(10deg);
+        }
+
+        .image5 {
+            transform: rotate(0deg);
+            top: 10%;
+            left: 87%;
+            transform: translateX(-50%) rotate(5deg);
+            z-index: -2;
+        }
+
+        .image6 {
+            transform: rotate(-20deg);
+            top: 13%; /* Position it below the first image */
+            left: 13%; /* Move it slightly to the right */
+            transform: translateX(-50%) rotate(10deg);
+        }
+
+        .image7 {
+            transform: rotate(-10deg);
+            top: 56%; /* Position it below the second image */
+            left: 78%; /* Move it slightly to the left */
+            transform: translateX(-50%) rotate(-10deg);
+        }
+
+        .image8{
+            transform: rotate(10deg);
+            top: 57%; /* Position it below the second image */
+            left: 15%; /* Move it slightly to the left */
+            transform: translateX(-50%) rotate(0deg);
+        }
+
+        @media (max-width: 768px){
+            body{
+                font-size: 14px;
+            }
+
+            #birthdayTitle{
+                font-size: 2.5rem;
+            }
+
+            .portrait-image{
+                width:120px;
+                border: 8px solid white;
+            }
+
+            button{
+                font-size: 1rem;
+                padding: 8px 15px;
+            }
+
+            .image1, .image2, .image3, .image4, .image5, .image6, .image7, .image8 {
+                width: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #birthdayTitle {
+                font-size: 2rem;
+            }
+
+            .portrait-image {
+                width: 100px;
+            }
+
+            .page {
+                padding: 20px;
+            }
+
+            button {
+                font-size: 0.9rem;
+            }
+        }
+
+        body {
+	font-family: 'Indie Flower', cursive !important;
+  background: lightpink; 
+	margin: 0px;
+	padding: 0px;
+}
+
+::selection {
+	background: transparent;
+}
+
+h4 {
+	font-size: 26px;
+	line-height: 1px;
+	font-family: 'Amatic SC', cursive !important;
+}
+
+.color1{color:#F48FB1}
+.color2{color:#F06292}
+
+
+.card {
+	color: #FF80AB; 
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 395px;
+	height: 400px;
+	background: #e0e1dc;
+	transform-style: preserve-3d;
+	transform: translate(-50%,-50%) perspective(2000px);
+	box-shadow: inset 300px 0 50px rgba(0,0,0,.5), 20px 0 60px rgba(0,0,0,.5);
+	transition: 1s;
+}
+
+.card:hover {
+	transform: translate(-50%,-50%) perspective(2000px) rotate(15deg) scale(1.2);
+	box-shadow: inset 20px 0 50px rgba(0,0,0,.5), 0 10px 100px rgba(0,0,0,.5);
+}
+
+.card:before {
+	content:'';
+	position: absolute;
+	top: -5px;
+	left: 0;
+	width: 100%;
+	height: 5px;
+	background: #BAC1BA;
+	transform-origin: bottom;
+	transform: skewX(-45deg);
+}
+
+.card:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: -5px;
+	width: 5px;
+	height: 100%;
+	background: #92A29C;
+	transform-origin: left;
+	transform: skewY(-45deg);
+}
+
+.card .imgBox {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	transform-origin: left;
+	transition: .7s;
+}
+
+.card .bark {
+	position: absolute;
+	background: #e0e1dc;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	transition: .7s;
+}
+
+.card .imgBox img {
+	min-width: 250px;
+	max-height: 400px;
+}
+
+.card:hover .imgBox {
+	transform: rotateY(-135deg);
+}
+
+.card:hover .bark {
+	opacity: 1;
+	transition: .6s;
+  box-shadow: 300px 200px 100px rgba(0, 0, 0, .4) inset;
+}
+
+.card .details {
+	position: absolute;
+	top: 0;
+	left: 0;
+	box-sizing: border-box;
+	padding: 0 0 0 10px;
+	z-index: -1;
+	margin-top: 70px;
+}
+
+.card .details p {
+	font-size: 15px;
+	line-height: 5px;
+	transform: rotate(-10deg);
+	padding: 0 0 0 20px;
+}
+
+.card .details h4 {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+    </style>
+</head>
+<body>
+    <div class="page active" id="page1">
+        <h1 id="birthdayTitle">BIRTHDAY CARD</h1>
+        <p></p>
+        <div class="page1-buttons-container">
+            <button onclick="goToPage(2)">>>></button>
+        </div>
+    </div>
+
+    <div class="page" id="page2">
+        <h1 id="page2Header">I just want to let you know</h1>
+        <p id="p2"><b>That you're the best person i've ever met.</b></p>
+        <p id="p2"><b>I wish you the very best in anything you do and will always be by your side.</b></p>
+        <p id="p2"><b>You are such a beautiful soul inside and out.</b></p>
+        <p id="p2"><b> The strength you show every day inspires everyone around you,</b></p>
+        <p id="p2"><b> And I hope you see in yourself what we all see in you.</b></p>
+
+        <div class="image-container">
+            <img src="IMG1.jpg" alt="Image 4" class="portrait-image image1">
+            <img src="IMG2.jpg" alt="Image 5" class="portrait-image image2">
+            <img src="IMG3.jpg" alt="Image 6" class="portrait-image image3">
+            <img src="IMG4.jpg" alt="Image 7" class="portrait-image image4">
+            <img src="IMG5.jpg" alt="Image 8" class="portrait-image image5">
+            <img src="IMG6.jpg" alt="Image 9" class="portrait-image image6">
+            <img src="IMG7.jpg" alt="Image 10" class="portrait-image image7">
+            <img src="IMG8.jpg" alt="Image 11" class="portrait-image image8">
+        </div>
+
+        <div class="page2-buttons-container">
+            <button onclick="goToPage(1)"><<<</button>
+            <button onclick="goToPage(3)">>>></button>
+        </div>
+    </div>
+
+    <div class="page" id="page3">
+        
+        <div class="card">
+            <div class="imgBox">
+                <div class="bark"></div>
+                <img src="bdaycard" alt="Placeholder Image">
+            </div>
+            <div class="details">
+                <h4 class="color1">HAPPY BIRTHDAY MY LOVE!!</h4>
+                <h4 class="color2 margin">(hehe)</h4>
+                <p class="text-right">Happy Birthday!</p>
+                <p>Dear,</p>
+                <p>May you be the happiest girl in</p>
+                <p>the world. ♥</p>
+                <p class="text-right">— Slenderman</p>
+            </div>
+        </div>
+        <div class="page3-buttons-container">
+            <button onclick="goToPage(2)"><<<</button>
+        </div>
+    </div>
+
+   
+
+
+    <div class="heart heart1"></div>
+    <div class="heart heart2"></div>
+    <div class="heart heart3"></div>
+    <div class="heart heart4"></div>
+    <div class="heart heart5"></div>
+    <div class="heart heart6"></div>
+    <div class="heart heart7"></div>
+    <div class="heart heart8"></div>
+    <div class="heart heart9"></div>
+    <div class="heart heart10"></div>
+    <div class="heart heart11"></div>
+
+
+
+    <script>
+        // Function to navigate between pages
+        function goToPage(pageNumber) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Show the selected page
+            const targetPage = document.getElementById('page' + pageNumber);
+            targetPage.classList.add('active');
+        }
+    </script>
+</body>
+</html>
